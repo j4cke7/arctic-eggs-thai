@@ -380,6 +380,12 @@ func refresh_credit_layouts():
 
 func ui_minimum_font_size(node):
 	if node is Button:
+		for button in ["SaveMenuBackBtn", "SaveMenuSaveBtn", "LoadMenuLoadBtn", "SaveMenuDeleteSaveBtn"]:
+			if is_scene_node(node, "res://UI/pause/PauseMenu.tscn", "Background/SaveMenu/Control/HBoxContainer/" + button):
+				return 18
+		for button in ["SaveBtn1", "SaveBtn2", "SaveBtn3"]:
+			if is_scene_node(node, "res://UI/pause/PauseMenu.tscn", "Background/SaveMenu/" + button):
+				return 18
 		for button in ["ResumeBtn", "SaveMenuBtn", "LoadMenuBtn", "DifficultyBtn", "SettingsMenuBtn", "QuitBtn"]:
 			if is_scene_node(node, "res://UI/pause/PauseMenu.tscn", "Background/Control/MainPauseMenu/" + button):
 				return 22
