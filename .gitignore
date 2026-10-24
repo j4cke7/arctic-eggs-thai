@@ -1,0 +1,6 @@
+*.zip
+*.sqlite*
+*.db
+*.log
+.audit/
+work/
