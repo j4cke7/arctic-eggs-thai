@@ -2,7 +2,7 @@
 param([ValidateSet('Install','Uninstall','Status')][string]$Action='Install', [string]$GameRoot)
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
-$expectedManifest='d7fa3d3647681786add1cb5efc90effab513becfaa2cde822d4e64f2a9767302'
+$expectedManifest='60c251d85434b5fef99cdedcf64bc23c2c18d2c76ae7850ba08ae683d6f0c231'
 $sidecarName='ArcticEggs-Thai-replace-en'
 function Sha([string]$Path) {
     $stream=[IO.File]::OpenRead($Path); $hasher=[Security.Cryptography.SHA256]::Create()
@@ -88,11 +88,13 @@ Verify-Directory $PSScriptRoot (Test-Path -LiteralPath (Join-Path $PSScriptRoot 
 foreach ($process in @(Get-Process -Name game -ErrorAction SilentlyContinue)) {
     if (!$process.Path -or [IO.Path]::GetDirectoryName($process.Path) -eq $GameRoot) { throw 'Close Arctic Eggs before changing or verifying this installation.' }
 }
-if ((Sha (Join-Path $GameRoot 'game.exe')) -ne $manifest.exe_sha256 -or (Sha (Join-Path $GameRoot 'game.pck')) -ne $manifest.pck_sha256) { throw 'Unknown or modified game executable/PCK. Supported Steam build is 18492481.' }
+if ($Action -ne 'Uninstall') {
+    if ((Sha (Join-Path $GameRoot 'game.exe')) -ne $manifest.exe_sha256 -or (Sha (Join-Path $GameRoot 'game.pck')) -ne $manifest.pck_sha256) { throw 'Unknown or modified game executable/PCK. Supported Steam build is 18492481.' }
+}
 $appmanifest=Join-Path ([IO.Path]::GetDirectoryName([IO.Path]::GetDirectoryName($GameRoot))) 'appmanifest_2763670.acf'
 Safe $appmanifest
 $steamText=[IO.File]::ReadAllText($appmanifest)
-if ($steamText -notmatch '"appid"\s+"2763670"' -or $steamText -notmatch '"buildid"\s+"18492481"') { throw 'Steam app/build mismatch.' }
+if ($steamText -notmatch '"appid"\s+"2763670"' -or ($Action -ne 'Uninstall' -and $steamText -notmatch '"buildid"\s+"18492481"')) { throw 'Steam app/build mismatch.' }
 $owned=Join-Path $GameRoot $sidecarName
 $stage=Join-Path $GameRoot ($sidecarName+'.stage-'+$expectedManifest.Substring(0,16))
 $tomb=Join-Path $GameRoot ($sidecarName+'.remove-'+$expectedManifest.Substring(0,16))

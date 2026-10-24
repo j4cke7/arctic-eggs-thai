@@ -2,13 +2,15 @@
 
 [![Arctic Eggs](https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2763670/header.jpg?t=1777045542)](https://store.steampowered.com/app/2763670/Arctic_Eggs/)
 
-ม็อดภาษาไทยสำหรับ **Arctic Eggs บน Steam Windows build 18492481** รุ่นทดลอง 0.1.0
+ม็อดภาษาไทยสำหรับ **Arctic Eggs บน Steam Windows build 18492481** รุ่นทดลอง 0.1.1
 
-## [ดาวน์โหลดม็อดภาษาไทย (.zip)](https://github.com/j4cke7/arctic-eggs-thai/releases/download/v0.1.0-build18492481/Arctic-Eggs-Thai-replace-en-build18492481.zip)
+## [ดาวน์โหลดม็อดภาษาไทย (.zip)](https://github.com/j4cke7/arctic-eggs-thai/releases/download/v0.1.1-build18492481/Arctic-Eggs-Thai-replace-en-build18492481.zip)
 
-[รายละเอียดรุ่น](https://github.com/j4cke7/arctic-eggs-thai/releases/tag/v0.1.0-build18492481) · [ไฟล์ตรวจสอบ SHA-256](https://github.com/j4cke7/arctic-eggs-thai/releases/download/v0.1.0-build18492481/Arctic-Eggs-Thai-replace-en-build18492481.zip.sha256)
+[รายละเอียดรุ่น](https://github.com/j4cke7/arctic-eggs-thai/releases/tag/v0.1.1-build18492481) · [ไฟล์ตรวจสอบ SHA-256](https://github.com/j4cke7/arctic-eggs-thai/releases/download/v0.1.1-build18492481/Arctic-Eggs-Thai-replace-en-build18492481.zip.sha256)
 
 ม็อดใช้แทนช่องภาษา **English** เปิดเกมจาก Steam ตามปกติได้ ไม่ต้องเปิดผ่าน Play-Thai ฟอนต์ไทยรวมอยู่ในชุดแล้ว
+
+รุ่น 0.1.1 แก้ตัวถอนให้ตรวจ ownership และถอนได้หลัง Steam อัปเดต โดยไม่แตะ EXE/PCK หรือไฟล์เกมใหม่ การติดตั้งยังรองรับ build ที่ระบุเท่านั้น
 
 ## วิธีติดตั้ง
 
@@ -27,6 +29,12 @@
 
 เก็บโฟลเดอร์ที่แตก ZIP ไว้สำหรับถอนการติดตั้ง หากต้องย้ายโฟลเดอร์เกม ให้ถอนม็อดก่อน แล้วติดตั้งใหม่หลังย้ายเสร็จ
 
+## หากติดตั้งรุ่น 0.1.0 อยู่แล้ว
+
+ตัวถอนของชุดใหม่ไม่ข้าม ownership เพื่อรับไฟล์ม็อดคนละรุ่น หากเกมยังเป็น build ที่รองรับ ให้ถอนด้วย ZIP รุ่น 0.1.0 เดิมก่อน แล้วจึงติดตั้ง 0.1.1
+
+หาก Steam อัปเดตจนตัวถอน 0.1.0 หยุด ให้ใช้ [วิธีซ่อมตัวถอนรุ่นเดิม](repair-v0.1.0/README-th.md) โดยคง manifest เดิม ไฟล์นี้เป็นการซ่อมเฉพาะตัวถอน ไม่ทำให้ม็อดรองรับเกม build ใหม่
+
 ## หากติดตั้งไม่สำเร็จ
 
 - ตรวจว่าแตกไฟล์ครบและเกมปิดอยู่
@@ -38,7 +46,7 @@
 
 ใช้บทแปลชุดที่ตรวจแล้วและฟอนต์ Sarabun บทสนทนาคงลูกเล่นขึ้นทีละตัวอักษรเดิม บางข้อความยังอาจเป็นภาษาอังกฤษ ข้อความที่ยังยืนยันต้นฉบับหรือจุดแสดงผลไม่ได้ยังไม่ถูกเดาเติม
 
-ม็อดนี้เป็นงานแปลชุมชน รุ่นนี้ยังไม่ได้รับรองว่าทุกฉากและทุกขนาดหน้าจอผ่านการเล่นครบแล้ว ดูผลทดสอบเฉพาะรุ่นใน [รายละเอียดรุ่น](https://github.com/j4cke7/arctic-eggs-thai/releases/tag/v0.1.0-build18492481)
+ม็อดนี้เป็นงานแปลชุมชน รุ่นนี้ยังไม่ได้รับรองว่าทุกฉากและทุกขนาดหน้าจอผ่านการเล่นครบแล้ว ดูผลทดสอบเฉพาะรุ่นใน [รายละเอียดรุ่น](https://github.com/j4cke7/arctic-eggs-thai/releases/tag/v0.1.1-build18492481)
 
 ## ภาพจากเกมต้นฉบับ
 
