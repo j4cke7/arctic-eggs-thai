@@ -1,8 +1,10 @@
-# Arctic Eggs ภาษาไทย
+# Arctic Eggs ภาษาไทย | Thai Translation Mod
 
 [![Arctic Eggs](https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2763670/header.jpg?t=1777045542)](https://store.steampowered.com/app/2763670/Arctic_Eggs/)
 
 ม็อดภาษาไทยสำหรับ **Arctic Eggs บน Steam Windows build 18492481** รุ่นทดลอง 0.1.1
+
+A Thai translation mod for Arctic Eggs on Steam Windows, with Thai fonts and installation and uninstall instructions.
 
 ## [ดาวน์โหลดม็อดภาษาไทย (.zip)](https://github.com/j4cke7/arctic-eggs-thai/releases/download/v0.1.1-build18492481/Arctic-Eggs-Thai-replace-en-build18492481.zip)
 
