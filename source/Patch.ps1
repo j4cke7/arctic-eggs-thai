@@ -2,7 +2,7 @@
 param([ValidateSet('Install','Uninstall','Status')][string]$Action='Install', [string]$GameRoot)
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
-$expectedManifest='60c251d85434b5fef99cdedcf64bc23c2c18d2c76ae7850ba08ae683d6f0c231'
+$expectedManifest='ef35410748d1eea8f2f3c62fc2e71543fba20ab37e545b29d26e8553a98c5917'
 $sidecarName='ArcticEggs-Thai-replace-en'
 function Sha([string]$Path) {
     $stream=[IO.File]::OpenRead($Path); $hasher=[Security.Cryptography.SHA256]::Create()

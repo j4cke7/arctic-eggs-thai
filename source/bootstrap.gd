@@ -14,6 +14,7 @@ var literal_sources = {}
 var dialogue_owners = {}
 var last_locale = ""
 var counters = {}
+var credit_layouts = {}
 
 func _init():
 	package_directory = get_script().resource_path.get_base_dir()
@@ -237,7 +238,7 @@ func translate_tutorial(node, english):
 	for scope in scopes_for(node):
 		for property in ["controller_dialog", "mouse_dialog"]:
 			if scope.get(property, {}).has(english):
-				return scope[property][english]
+				return translate_literal(node, english, scope[property][english])
 	return english
 
 func translate_property(node, english, property = "text"):
@@ -279,14 +280,10 @@ func validate_arrays(node):
 			if owner.scene_file_path == row.resource and relative == row.node:
 				checked[row.property] = true
 
-func regular_font(node):
-	if node.has_meta("arctic_regular_font"):
-		return node.get_meta("arctic_regular_font")
-	var original = node.font if node is Label3D else node.get_theme_font("normal_font" if node is RichTextLabel else "font")
-	var combined = original.duplicate()
-	combined.fallbacks = [fonts.Mirror if original.resource_path.to_lower().contains("breymont") else fonts.Regular]
-	node.set_meta("arctic_regular_font", combined)
-	return combined
+func regular_font(_node):
+	# Explicit primary font: inherited SystemFont fallback can bypass Thai fallbacks.
+	# A Breymont resource name does not establish that this UI role is mirrored.
+	return fonts.Bold
 
 func contains_thai(text):
 	for character in text:
@@ -294,26 +291,158 @@ func contains_thai(text):
 			return true
 	return false
 
+func is_scene_node(node, scene, path):
+	var ancestor = node
+	while ancestor != null:
+		if ancestor.scene_file_path == scene and str(ancestor.get_path_to(node)) == path:
+			return true
+		ancestor = ancestor.get_parent()
+	return false
+
+func credits_root(node):
+	var ancestor = node
+	while ancestor != null:
+		if ancestor.scene_file_path == "res://UI/credits.tscn":
+			return ancestor
+		ancestor = ancestor.get_parent()
+	return null
+
+func credit_label_bounds(node):
+	var bounds = Rect2()
+	if node is CanvasItem and not node.is_visible_in_tree():
+		return bounds
+	if node is Label and not node.text.is_empty():
+		bounds = node.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, node.size)
+	for child in node.get_children():
+		var child_bounds = credit_label_bounds(child)
+		if child_bounds.has_area():
+			bounds = bounds.merge(child_bounds) if bounds.has_area() else child_bounds
+	return bounds
+
+func refresh_credit_layouts():
+	if credit_layouts.is_empty():
+		return
+	var active = {}
+	for entry in watched:
+		var node = entry.reference.get_ref()
+		if node != null and entry.font_state.get("installed") != null and credits_root(node) != null:
+			active[node.get_instance_id()] = entry
+	for identity in active:
+		var entry = active[identity]
+		var node = entry.reference.get_ref()
+		var parent = node.get_parent()
+		if node is Label and parent is Label and active.has(parent.get_instance_id()):
+			var state = entry.font_state
+			if not state.has("original_credit_y"):
+				state.original_credit_y = node.position.y
+			node.position.y = maxf(state.original_credit_y, parent.get_minimum_size().y + 4)
+			state.installed_credit_y = node.position.y
+		elif entry.font_state.has("installed_credit_y"):
+			var state = entry.font_state
+			if is_equal_approx(node.position.y, state.installed_credit_y):
+				node.position.y = state.original_credit_y
+			state.erase("original_credit_y")
+			state.erase("installed_credit_y")
+	for identity in credit_layouts.keys():
+		var layout = credit_layouts[identity]
+		var root = layout.reference.get_ref()
+		if root == null:
+			credit_layouts.erase(identity)
+			continue
+		var owned = false
+		for label_id in active:
+			if credits_root(active[label_id].reference.get_ref()) == root:
+				owned = true
+		var previous_bottom = -INF
+		for section in layout.sections:
+			var node = section.reference.get_ref()
+			if node == null:
+				continue
+			if not owned:
+				if is_equal_approx(node.position.y, section.installed_y):
+					node.position.y = section.original_y
+				continue
+			var bounds = credit_label_bounds(node)
+			if not bounds.has_area():
+				continue
+			var parent_scale = node.get_parent().get_global_transform_with_canvas().y.y
+			if parent_scale <= 0:
+				continue
+			var target = section.original_y
+			if previous_bottom != -INF:
+				target = maxf(target, node.position.y + (previous_bottom + 16 - bounds.position.y) / parent_scale)
+			var shift = (target - node.position.y) * parent_scale
+			node.position.y = target
+			section.installed_y = node.position.y
+			previous_bottom = bounds.end.y + shift
+		if not owned:
+			credit_layouts.erase(identity)
+
+func ui_minimum_font_size(node):
+	if node is Button:
+		for button in ["ResumeBtn", "SaveMenuBtn", "LoadMenuBtn", "DifficultyBtn", "SettingsMenuBtn", "QuitBtn"]:
+			if is_scene_node(node, "res://UI/pause/PauseMenu.tscn", "Background/Control/MainPauseMenu/" + button):
+				return 22
+		for button in ["LoadMenuBackBtn", "LoadMenuDeleteSaveBtn"]:
+			if is_scene_node(node, "res://UI/pause/PauseMenu.tscn", "Background/LoadMenu/" + button):
+				return 14
+		return 0
+	if not node is Label:
+		return 0
+	if is_scene_node(node, "res://Levels/closet.tscn", "Tutorial/tutorial_label"):
+		return 30
+	if is_scene_node(node, "res://Player/Player.tscn", "SaveIndicatorCanvas/SaveIndicator/Label"):
+		return 22
+	var ancestor = node
+	while ancestor != null:
+		if ancestor.scene_file_path == "res://UI/credits.tscn":
+			return 22
+		ancestor = ancestor.get_parent()
+	return 0
+
+func apply_tutorial_width(node, state):
+	if state.has("installed_width") or not node is Label or not is_scene_node(node, "res://Levels/closet.tscn", "Tutorial/tutorial_label"):
+		return
+	var canvas_transform = node.get_global_transform_with_canvas()
+	var display_scale = canvas_transform.x.length()
+	var viewport_width = node.get_viewport_rect().size.x
+	if display_scale <= 0 or viewport_width <= 96:
+		return
+	state.original_width = node.size.x
+	state.original_x = node.position.x
+	node.size.x = (viewport_width - 96) / display_scale
+	var local_shift = canvas_transform.affine_inverse().basis_xform(Vector2(48 - canvas_transform.origin.x, 0))
+	node.position.x += node.get_transform().basis_xform(local_shift).x
+	state.installed_width = node.size.x
+	state.installed_x = node.position.x
+
 func wrap_words(node, text):
 	if not payload.word_boundaries.has(text):
 		return text
 	var width = 0.0
 	var font_size = 16
+	var font = regular_font(node)
 	if node is Label3D:
 		if node.autowrap_mode == TextServer.AUTOWRAP_OFF:
 			return text
 		width = node.width
 		font_size = node.font_size
+		if node.font != null:
+			font = node.font
 	elif node is Label:
 		if node.autowrap_mode == TextServer.AUTOWRAP_OFF:
 			return text
 		width = node.size.x
 		font_size = node.get_theme_font_size("font_size")
+		font = node.get_theme_font("font")
+		if node.label_settings != null:
+			font_size = node.label_settings.font_size
+			if node.label_settings.font != null:
+				font = node.label_settings.font
 	else:
 		return text
 	if width <= 0:
 		return text
-	var font = regular_font(node)
 	var line = ""
 	var result = ""
 	for token in payload.word_boundaries[text]:
@@ -338,11 +467,36 @@ func capture_font(node):
 func apply_font(node, state):
 	if state.is_empty():
 		state.merge(capture_font(node))
+	apply_tutorial_width(node, state)
+	var root = credits_root(node)
+	if root != null and not credit_layouts.has(root.get_instance_id()):
+		var sections = []
+		for path in ["Main/HBoxContainer2", "Main/DragonBaby", "Main/Control3", "Main/Arcus Key", "Main/CriticalReflex", "Main/HBoxContainer"]:
+			var section = root.get_node_or_null(path)
+			if section != null:
+				sections.append({"reference": weakref(section), "original_y": section.position.y, "installed_y": section.position.y})
+		credit_layouts[root.get_instance_id()] = {"reference": weakref(root), "sections": sections}
 	var replacement = regular_font(node)
 	if node is Label3D:
 		node.font = replacement
 	else:
 		node.add_theme_font_override(state.key, replacement)
+	var minimum_size = ui_minimum_font_size(node)
+	if minimum_size > 0:
+		if node is Label and node.label_settings != null:
+			if not state.has("installed_settings"):
+				state.original_settings = node.label_settings
+				var settings = node.label_settings.duplicate()
+				settings.font = replacement
+				settings.font_size = maxi(settings.font_size, minimum_size)
+				state.installed_settings = settings
+			node.label_settings = state.installed_settings
+		else:
+			if not state.has("installed_size"):
+				state.had_size_override = node.has_theme_font_size_override("font_size")
+				state.original_size = node.get_theme_font_size("font_size")
+				state.installed_size = maxi(state.original_size, minimum_size)
+			node.add_theme_font_size_override("font_size", state.installed_size)
 	state.installed = replacement
 
 func restore_font(node, state):
@@ -356,7 +510,21 @@ func restore_font(node, state):
 			node.add_theme_font_override(state.key, state.original)
 		else:
 			node.remove_theme_font_override(state.key)
-	state.installed = null
+	if state.has("installed_settings") and node.label_settings == state.installed_settings:
+		node.label_settings = state.original_settings
+	if state.has("installed_size") and node.has_theme_font_size_override("font_size") and node.get_theme_font_size("font_size") == state.installed_size:
+		if state.had_size_override:
+			node.add_theme_font_size_override("font_size", state.original_size)
+		else:
+			node.remove_theme_font_size_override("font_size")
+	if state.has("installed_width"):
+		if is_equal_approx(node.size.x, state.installed_width):
+			node.size.x = state.original_width
+		if is_equal_approx(node.position.x, state.installed_x):
+			node.position.x = state.original_x
+	if state.has("installed_credit_y") and is_equal_approx(node.position.y, state.installed_credit_y):
+		node.position.y = state.original_credit_y
+	state.clear()
 
 func refresh_properties():
 	if payload.is_empty() or failed:
@@ -419,6 +587,7 @@ func refresh_properties():
 		if not owns_thai:
 			restore_font(node, entry.font_state)
 	watched = alive
+	refresh_credit_layouts()
 
 
 # Appended to bootstrap.gd by the package builder; optional ordinary-startup probe.
