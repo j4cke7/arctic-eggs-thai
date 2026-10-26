@@ -2,7 +2,7 @@
 param([ValidateSet('Install','Uninstall','Status')][string]$Action='Install', [string]$GameRoot)
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
-$expectedManifest='b89dd31ff2baeb02d5a9b18f0ad0049b7e19f721bfb70705108ba943c62f77a9'
+$expectedManifest='4dd063b4f5b530726a2511df055d4b4e3204b4b2559c294ca7b8e7318274c0f9'
 $sidecarName='ArcticEggs-Thai-replace-en'
 function Sha([string]$Path) {
     $stream=[IO.File]::OpenRead($Path); $hasher=[Security.Cryptography.SHA256]::Create()
@@ -88,13 +88,22 @@ Verify-Directory $PSScriptRoot (Test-Path -LiteralPath (Join-Path $PSScriptRoot 
 foreach ($process in @(Get-Process -Name game -ErrorAction SilentlyContinue)) {
     if (!$process.Path -or [IO.Path]::GetDirectoryName($process.Path) -eq $GameRoot) { throw 'Close Arctic Eggs before changing or verifying this installation.' }
 }
+$library=[IO.Path]::GetDirectoryName([IO.Path]::GetDirectoryName($GameRoot))
+$appmanifest=if ($library) {Join-Path $library 'appmanifest_2763670.acf'} else {$null}
+if ($appmanifest) {Safe $appmanifest}
+# Uninstall must still clean up after Steam removed or moved the game's app manifest.
+$haveManifest=$appmanifest -and (Test-Path -LiteralPath $appmanifest)
+if (!$haveManifest -and $Action -ne 'Uninstall') { throw 'Steam app manifest not found. Pass -GameRoot with the Steam ArcticEggs directory.' }
+$steamText=if ($haveManifest) {[IO.File]::ReadAllText($appmanifest)} else {'"appid" "2763670"'}
+if ($steamText -notmatch '"appid"\s+"2763670"') { throw 'Steam app mismatch.' }
 if ($Action -ne 'Uninstall') {
-    if ((Sha (Join-Path $GameRoot 'game.exe')) -ne $manifest.exe_sha256 -or (Sha (Join-Path $GameRoot 'game.pck')) -ne $manifest.pck_sha256) { throw 'Unknown or modified game executable/PCK. Supported Steam build is 18492481.' }
+    # bootstrap.gd quits a game whose EXE/PCK differ, so file identity, not the Steam label, gates Install.
+    if ((Sha (Join-Path $GameRoot 'game.exe')) -ne $manifest.exe_sha256 -or (Sha (Join-Path $GameRoot 'game.pck')) -ne $manifest.pck_sha256) {
+        if ($Action -eq 'Status') { throw 'Game files changed since tested Steam build 18492481. If the Thai mod is installed, it now stops the game from starting; run Uninstall.' }
+        throw 'Game files changed since tested Steam build 18492481; this release would stop the game from starting. Wait for an updated Thai release. Uninstall still works.'
+    }
+    if ($steamText -notmatch '"buildid"\s+"18492481"') { Write-Warning 'Steam reports a build other than 18492481, but game.exe and game.pck match the tested files. Continuing.' }
 }
-$appmanifest=Join-Path ([IO.Path]::GetDirectoryName([IO.Path]::GetDirectoryName($GameRoot))) 'appmanifest_2763670.acf'
-Safe $appmanifest
-$steamText=[IO.File]::ReadAllText($appmanifest)
-if ($steamText -notmatch '"appid"\s+"2763670"' -or ($Action -ne 'Uninstall' -and $steamText -notmatch '"buildid"\s+"18492481"')) { throw 'Steam app/build mismatch.' }
 $owned=Join-Path $GameRoot $sidecarName
 $stage=Join-Path $GameRoot ($sidecarName+'.stage-'+$expectedManifest.Substring(0,16))
 $tomb=Join-Path $GameRoot ($sidecarName+'.remove-'+$expectedManifest.Substring(0,16))
