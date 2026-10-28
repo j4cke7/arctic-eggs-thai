@@ -2,18 +2,18 @@
 
 [![Arctic Eggs](https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2763670/header.jpg?t=1777045542)](https://store.steampowered.com/app/2763670/Arctic_Eggs/)
 
-ม็อดภาษาไทยสำหรับ **Arctic Eggs บน Steam Windows build 18492481** รุ่น 1.0.0
+ม็อดภาษาไทยสำหรับ **Arctic Eggs บน Steam Windows build 18492481** รุ่น 1.0.1
 
 A Thai translation mod for Arctic Eggs on Steam Windows, with Thai fonts and installation and uninstall instructions.
 
-## [ดาวน์โหลดม็อดภาษาไทย (.zip)](https://github.com/j4cke7/arctic-eggs-thai/releases/download/v1.0.0-build18492481/Arctic-Eggs-Thai-replace-en-build18492481.zip)
+## [ดาวน์โหลดม็อดภาษาไทย (.zip)](https://github.com/j4cke7/arctic-eggs-thai/releases/download/v1.0.1-build18492481/Arctic-Eggs-Thai-replace-en-build18492481.zip)
 
-[รายละเอียดรุ่น](https://github.com/j4cke7/arctic-eggs-thai/releases/tag/v1.0.0-build18492481) · [ไฟล์ตรวจสอบ SHA-256](https://github.com/j4cke7/arctic-eggs-thai/releases/download/v1.0.0-build18492481/Arctic-Eggs-Thai-replace-en-build18492481.zip.sha256)
+[รายละเอียดรุ่น](https://github.com/j4cke7/arctic-eggs-thai/releases/tag/v1.0.1-build18492481) · [ไฟล์ตรวจสอบ SHA-256](https://github.com/j4cke7/arctic-eggs-thai/releases/download/v1.0.1-build18492481/Arctic-Eggs-Thai-replace-en-build18492481.zip.sha256)
 
 ม็อดใช้แทนช่องภาษา **English** เปิดเกมจาก Steam ตามปกติได้ ไม่ต้องเปิดผ่าน Play-Thai ฟอนต์ไทยรวมอยู่ในชุดแล้ว
 
 <!-- release:summary -->
-รุ่น 1.0.0 ปรับถ้อยคำบทพูด 9 บรรทัด ตัวติดตั้งเปิดหน้าต่างให้เลือกโฟลเดอร์เกมได้เมื่อหาเกมใน Steam ไม่เจอ และ README ในไฟล์ ZIP สั้นลง
+รุ่น 1.0.1 ตัวติดตั้งเปิดหน้าต่างให้วางที่อยู่โฟลเดอร์เกมได้เมื่อหาเกมใน Steam ไม่เจอ คำแปลเหมือนรุ่น 1.0.0
 <!-- /release:summary -->
 
 ## วิธีติดตั้ง
@@ -35,11 +35,11 @@ A Thai translation mod for Arctic Eggs on Steam Windows, with Thai fonts and ins
 
 ## อัปเดตจากรุ่นก่อน
 
-ปิดเกม แล้วใช้ `Uninstall.cmd` จากโฟลเดอร์ที่ใช้ติดตั้งรุ่นเดิมถอนม็อดก่อน จากนั้นติดตั้ง 1.0.0 ตามขั้นตอนด้านบน ตัวติดตั้งจะไม่เขียนทับม็อดคนละรุ่น
+ปิดเกม แล้วใช้ `Uninstall.cmd` จากโฟลเดอร์ที่ใช้ติดตั้งรุ่นเดิมถอนม็อดก่อน จากนั้นติดตั้ง 1.0.1 ตามขั้นตอนด้านบน ตัวติดตั้งจะไม่เขียนทับม็อดคนละรุ่น
 
 ## หากติดตั้งรุ่น 0.1.0 อยู่แล้ว
 
-ตัวถอนของชุดใหม่ไม่ข้าม ownership เพื่อรับไฟล์ม็อดคนละรุ่น หากเกมยังเป็น build ที่รองรับ ให้ถอนด้วย ZIP รุ่น 0.1.0 เดิมก่อน แล้วจึงติดตั้ง 1.0.0
+ตัวถอนของชุดใหม่ไม่ข้าม ownership เพื่อรับไฟล์ม็อดคนละรุ่น หากเกมยังเป็น build ที่รองรับ ให้ถอนด้วย ZIP รุ่น 0.1.0 เดิมก่อน แล้วจึงติดตั้ง 1.0.1
 
 หาก Steam อัปเดตจนตัวถอน 0.1.0 หยุด ให้ใช้ [วิธีซ่อมตัวถอนรุ่นเดิม](repair-v0.1.0/README-th.md) โดยคง manifest เดิม ไฟล์นี้เป็นการซ่อมเฉพาะตัวถอน ไม่ทำให้ม็อดรองรับเกม build ใหม่
 
@@ -54,7 +54,7 @@ A Thai translation mod for Arctic Eggs on Steam Windows, with Thai fonts and ins
 
 ใช้บทแปลชุดที่ตรวจแล้วและฟอนต์ Sarabun บทสนทนาคงลูกเล่นขึ้นทีละตัวอักษรเดิม บางข้อความยังอาจเป็นภาษาอังกฤษ ข้อความที่ยังยืนยันต้นฉบับหรือจุดแสดงผลไม่ได้ยังไม่ถูกเดาเติม
 
-ม็อดนี้เป็นงานแปลชุมชน รุ่นนี้ยังไม่ได้รับรองว่าทุกฉากและทุกขนาดหน้าจอผ่านการเล่นครบแล้ว ดูผลทดสอบเฉพาะรุ่นใน [รายละเอียดรุ่น](https://github.com/j4cke7/arctic-eggs-thai/releases/tag/v1.0.0-build18492481)
+ม็อดนี้เป็นงานแปลชุมชน รุ่นนี้ยังไม่ได้รับรองว่าทุกฉากและทุกขนาดหน้าจอผ่านการเล่นครบแล้ว ดูผลทดสอบเฉพาะรุ่นใน [รายละเอียดรุ่น](https://github.com/j4cke7/arctic-eggs-thai/releases/tag/v1.0.1-build18492481)
 
 ## ภาพจากเกมต้นฉบับ
 
