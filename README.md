@@ -1,67 +1,76 @@
-# Arctic Eggs ภาษาไทย | Thai Translation Mod
+<a href="https://store.steampowered.com/app/2763670/Arctic_Eggs/"><img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2763670/library_hero.jpg" alt="Arctic Eggs บน Steam" width="100%"></a>
 
-[![Arctic Eggs](https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2763670/header.jpg?t=1777045542)](https://store.steampowered.com/app/2763670/Arctic_Eggs/)
+<h1 align="center">Arctic Eggs ภาษาไทย | Thai Mod</h1>
 
-ม็อดภาษาไทยสำหรับ **Arctic Eggs บน Steam Windows build 18492481** รุ่น 1.0.1
+<p align="center">ม็อดแปลไทยจากแฟนเกม ใช้แทนภาษา English ในเกม ภาษาอื่นยังเลือกได้<br>
+<sub>Fan-made Thai translation mod for Arctic Eggs on Steam (Windows). It replaces the English language slot.</sub></p>
 
-A Thai translation mod for Arctic Eggs on Steam Windows, with Thai fonts and installation and uninstall instructions.
+<h2 align="center"><a href="https://github.com/j4cke7/arctic-eggs-thai/releases/download/v1.0.1-build18492481/Arctic-Eggs-Thai-replace-en-build18492481.zip">⬇️ ดาวน์โหลดม็อด (.zip, 272 KiB)</a></h2>
 
-## [ดาวน์โหลดม็อดภาษาไทย (.zip)](https://github.com/j4cke7/arctic-eggs-thai/releases/download/v1.0.1-build18492481/Arctic-Eggs-Thai-replace-en-build18492481.zip)
+<p align="center">
+<b>รุ่น 1.0.1</b> · อัปเดต 28 ต.ค. 2569 · ใช้กับ Steam (Windows) build 18492481<br>
+<sub>ใช้ลิงก์นี้เท่านั้น ปุ่ม Code สีเขียวของ GitHub ไม่ใช่ไฟล์ม็อด</sub>
+</p>
 
-[รายละเอียดรุ่น](https://github.com/j4cke7/arctic-eggs-thai/releases/tag/v1.0.1-build18492481) · [ไฟล์ตรวจสอบ SHA-256](https://github.com/j4cke7/arctic-eggs-thai/releases/download/v1.0.1-build18492481/Arctic-Eggs-Thai-replace-en-build18492481.zip.sha256)
+<p align="center">
+<a href="#ติดตั้ง">วิธีติดตั้ง</a> · <a href="https://github.com/j4cke7/arctic-eggs-thai/releases/tag/v1.0.1-build18492481">มีอะไรใหม่</a> · <a href="https://store.steampowered.com/app/2763670/Arctic_Eggs/">หน้าเกมบน Steam</a> · <a href="https://github.com/j4cke7/arctic-eggs-thai/issues">แจ้งปัญหา</a> · <a href="https://github.com/j4cke7">ม็อดเกมอื่น</a>
+</p>
 
-ม็อดใช้แทนช่องภาษา **English** เปิดเกมจาก Steam ตามปกติได้ ไม่ต้องเปิดผ่าน Play-Thai ฟอนต์ไทยรวมอยู่ในชุดแล้ว
+## ติดตั้ง
 
-<!-- release:summary -->
-รุ่น 1.0.1 ตัวติดตั้งเปิดหน้าต่างให้วางที่อยู่โฟลเดอร์เกมได้เมื่อหาเกมใน Steam ไม่เจอ คำแปลเหมือนรุ่น 1.0.0
-<!-- /release:summary -->
+1. ปิดเกม แล้วแตกไฟล์ ZIP ทั้งหมดไว้ที่ไหนก็ได้ อย่าเปิด `Install.cmd` จากในไฟล์ ZIP โดยตรง
+2. ดับเบิลคลิก `Install.cmd` แล้วรอจนขึ้นว่าเสร็จ ถ้าตัวติดตั้งหาเกมไม่เจอ จะเปิดหน้าต่างให้เลือกโฟลเดอร์เกม
+3. เปิดเกมจาก Steam ตามปกติ แล้วเลือกภาษา **English** ข้อความที่แปลไว้จะแสดงเป็นไทย
 
-## วิธีติดตั้ง
+## ถอนม็อด
 
-1. ปิด Arctic Eggs
-2. ดาวน์โหลด ZIP ด้านบน แล้วแตกไฟล์ทั้งหมดก่อนใช้งาน
-3. ดับเบิลคลิก `Install.cmd` ตัวติดตั้งจะค้นหาเกมใน Steam และตรวจรุ่นที่รองรับ
-4. เปิดเกมจาก Steam หรือ `game.exe` ตามปกติ แล้วเลือกภาษา **English** ข้อความที่แปลไว้จะแสดงเป็นไทย
+ปิดเกม แล้วดับเบิลคลิก `Uninstall.cmd` ในโฟลเดอร์ที่แตกไว้ จึงควรเก็บโฟลเดอร์นี้ไว้
 
-ตัวติดตั้งใช้ `.cmd` เรียก PowerShell ที่มีอยู่ใน Windows ไม่ต้องติดตั้ง Python หรือฟอนต์เพิ่ม อ่าน [ซอร์ส Patch.ps1](source/Patch.ps1) ได้ก่อนใช้งาน
+<details>
+<summary><b>อัปเดตจากรุ่นก่อน</b></summary>
 
-## วิธีถอนม็อด
+ปิดเกม แล้วใช้ `Uninstall.cmd` จากโฟลเดอร์ที่ใช้ติดตั้งรุ่นเดิมถอนม็อดก่อน จากนั้นติดตั้งรุ่นนี้ตามขั้นตอนด้านบน ตัวติดตั้งจะไม่เขียนทับม็อดคนละรุ่น
 
-1. ปิดเกม
-2. ดับเบิลคลิก `Uninstall.cmd` ในโฟลเดอร์ที่แตก ZIP
-3. เปิดเกมตามปกติ ช่อง English จะกลับเป็นภาษาอังกฤษ
+</details>
 
-เก็บโฟลเดอร์ที่แตก ZIP ไว้สำหรับถอนการติดตั้ง หากต้องย้ายโฟลเดอร์เกม ให้ถอนม็อดก่อน แล้วติดตั้งใหม่หลังย้ายเสร็จ
+<details>
+<summary><b>เคยติดตั้งรุ่น 0.1.0</b></summary>
 
-## อัปเดตจากรุ่นก่อน
+ถอนด้วย ZIP รุ่น 0.1.0 เดิมก่อน แล้วจึงติดตั้งรุ่นนี้ หาก Steam อัปเดตจนตัวถอน 0.1.0 หยุด ให้ใช้ [วิธีซ่อมตัวถอนรุ่นเดิม](repair-v0.1.0/README-th.md)
 
-ปิดเกม แล้วใช้ `Uninstall.cmd` จากโฟลเดอร์ที่ใช้ติดตั้งรุ่นเดิมถอนม็อดก่อน จากนั้นติดตั้ง 1.0.1 ตามขั้นตอนด้านบน ตัวติดตั้งจะไม่เขียนทับม็อดคนละรุ่น
+</details>
 
-## หากติดตั้งรุ่น 0.1.0 อยู่แล้ว
+<details>
+<summary><b>ขอบเขตของรุ่นนี้</b></summary>
 
-ตัวถอนของชุดใหม่ไม่ข้าม ownership เพื่อรับไฟล์ม็อดคนละรุ่น หากเกมยังเป็น build ที่รองรับ ให้ถอนด้วย ZIP รุ่น 0.1.0 เดิมก่อน แล้วจึงติดตั้ง 1.0.1
+ใช้บทแปลชุดที่ตรวจแล้วและฟอนต์ Sarabun บทสนทนาคงลูกเล่นขึ้นทีละตัวอักษรเดิม บางข้อความยังอาจเป็นภาษาอังกฤษ ข้อความที่ยังยืนยันต้นฉบับหรือจุดแสดงผลไม่ได้ยังไม่ถูกเดาเติม รุ่นนี้ยังไม่ได้รับรองว่าทุกฉากและทุกขนาดหน้าจอผ่านการเล่นครบแล้ว
 
-หาก Steam อัปเดตจนตัวถอน 0.1.0 หยุด ให้ใช้ [วิธีซ่อมตัวถอนรุ่นเดิม](repair-v0.1.0/README-th.md) โดยคง manifest เดิม ไฟล์นี้เป็นการซ่อมเฉพาะตัวถอน ไม่ทำให้ม็อดรองรับเกม build ใหม่
+</details>
 
-## หากติดตั้งไม่สำเร็จ
+<details>
+<summary><b>ติดตั้งไม่ได้?</b></summary>
 
-- ตรวจว่าแตกไฟล์ครบและเกมปิดอยู่
-- รองรับเฉพาะ build 18492481 หากเกมอัปเดตเป็นรุ่นอื่น ให้รอแพ็กที่รองรับ
+- Windows ขึ้นหน้าต่างเตือนตอนเปิด `Install.cmd`: กด **More info** แล้ว **Run anyway** ตัวติดตั้งเป็นสคริปต์ที่อ่านได้ในหัวข้อตรวจไฟล์ด้านล่าง
+- ม็อดนี้ทำมาสำหรับเกมบน Steam (Windows) เท่านั้น
+- รองรับเฉพาะ build ที่ระบุในหน้านี้ หากเกมอัปเดตเป็นรุ่นอื่น ให้รอแพ็กที่รองรับ
 - หากมี `override.cfg` หรือไฟล์ของม็อดอื่นที่ชนกัน ตัวติดตั้งจะหยุดพร้อมระบุสาเหตุ ให้เก็บไฟล์เดิมไว้ ไม่ต้องลบทิ้งเพื่อบังคับติดตั้ง
 - หากการติดตั้งถูกขัดจังหวะ ให้ปิดเกมแล้วเรียก `Install.cmd` อีกครั้ง
+- หากต้องย้ายโฟลเดอร์เกม ให้ถอนม็อดก่อน แล้วติดตั้งใหม่หลังย้ายเสร็จ
+- ยังไม่หาย: [แจ้งปัญหา](https://github.com/j4cke7/arctic-eggs-thai/issues)
 
-## ขอบเขตของรุ่นนี้
+</details>
 
-ใช้บทแปลชุดที่ตรวจแล้วและฟอนต์ Sarabun บทสนทนาคงลูกเล่นขึ้นทีละตัวอักษรเดิม บางข้อความยังอาจเป็นภาษาอังกฤษ ข้อความที่ยังยืนยันต้นฉบับหรือจุดแสดงผลไม่ได้ยังไม่ถูกเดาเติม
+<details>
+<summary><b>ตรวจไฟล์และสัญญาอนุญาต</b></summary>
 
-ม็อดนี้เป็นงานแปลชุมชน รุ่นนี้ยังไม่ได้รับรองว่าทุกฉากและทุกขนาดหน้าจอผ่านการเล่นครบแล้ว ดูผลทดสอบเฉพาะรุ่นใน [รายละเอียดรุ่น](https://github.com/j4cke7/arctic-eggs-thai/releases/tag/v1.0.1-build18492481)
+- ตัวติดตั้งเป็นสคริปต์ PowerShell ที่อ่านได้: [Patch.ps1](source/Patch.ps1)
+- SHA-256 ของ ZIP: `2a9217f5f4224120aa6815b28452ee53a628426c0444f0b836e7b094d8bde089`
+- [สัญญาอนุญาตฟอนต์](licenses/): Sarabun ใช้ SIL OFL
 
-## ภาพจากเกมต้นฉบับ
+</details>
 
-ภาพต่อไปนี้เป็นภาพประชาสัมพันธ์จากหน้า Steam ของเกม ไม่ใช่ภาพทดสอบคำแปลไทย
+---
 
-![Arctic Eggs — ภาพจากเกมต้นฉบับ](https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2763670/ss_da061e95820699b2e171071d0b5890c1adb6f887.1920x1080.jpg?t=1777045542)
+<p align="center"><a href="https://github.com/j4cke7"><b>ดูม็อดภาษาไทยของเกมอื่น</b></a></p>
 
-![Arctic Eggs — บรรยากาศในเกม](https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2763670/ss_3805a60d91e8840b7a8d690cc39bf55fad228a60.1920x1080.jpg?t=1777045542)
-
-[หน้าเกมบน Steam](https://store.steampowered.com/app/2763670/Arctic_Eggs/) · [แจ้งปัญหา](https://github.com/j4cke7/arctic-eggs-thai/issues)
+<p align="center"><sub>ม็อดนี้เป็นงานแปลโดยแฟนเกม ไม่มีส่วนเกี่ยวข้องกับผู้พัฒนาหรือผู้จัดจำหน่าย Arctic Eggs</sub></p>
